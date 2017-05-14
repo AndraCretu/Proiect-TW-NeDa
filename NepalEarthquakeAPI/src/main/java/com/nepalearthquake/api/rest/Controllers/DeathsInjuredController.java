@@ -13,8 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 import java.util.Map;
 
-//new line of commentary
-//another line
+//deleted 2 lines, added one
 
 /**
  * Created by Robert on 5/14/2017.
