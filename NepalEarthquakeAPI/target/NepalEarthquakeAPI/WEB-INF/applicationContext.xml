@@ -5,8 +5,7 @@
 	   xmlns:tx="http://www.springframework.org/schema/tx"
 	   xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
         http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
-        http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
-	http://www.springframework.org/schema/tx ">
+        http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
 
 	<!-- loading properties file -->
 
@@ -36,10 +35,10 @@
 		<property name="packagesToScan" value="com.nepalearthquake.api.rest.Models"/>
 		<property name="jpaProperties">
 			<props>
-				<prop key="hibernate.dialect">${hibernate.dialect}</prop>
-				<prop key="hibernate.hbm2ddl.auto">${hibernate.hbm2ddl.auto}</prop>
-				<prop key="hibernate.show_sql">${hibernate.show_sql}</prop>
-				<prop key="hibernate.format_sql">${hibernate.format_sql}</prop>
+				<prop key="hibernate.dialect">${jdbc.dialect}</prop>
+				<prop key="hibernate.hbm2ddl.auto">${jdbc.hbm2ddl.auto}</prop>
+				<prop key="hibernate.show_sql">${jdbc.show_sql}</prop>
+				<prop key="hibernate.format_sql">${jdbc.format_sql}</prop>
 			</props>
 		</property>
 	</bean>

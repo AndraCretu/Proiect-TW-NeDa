@@ -9,5 +9,6 @@ import java.util.List;
  */
 public interface DeathsAndInjuredService {
 
-    public List<DeathsAndInjured> getAll();
+
+    List<DeathsAndInjured> getAll();
 }
