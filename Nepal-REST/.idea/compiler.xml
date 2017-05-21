@@ -7,10 +7,12 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="fiivirtualcatalog" />
+        <module name="Nepal-REST" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="fiivirtualcatalog" target="1.8" />
+      <module name="Nepal-REST" target="1.8" />
     </bytecodeTargetLevel>
   </component>
 </project>
