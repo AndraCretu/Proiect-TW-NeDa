@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
+import javax.transaction.Transactional;
 import java.util.List;
 
 /**
@@ -23,21 +24,25 @@ public class JpaDeathsInjuredDAO implements DeathsInjuredDAO {
         return query.getResultList();
     }
 
+    @Transactional
     @Override
     public void removeById(int id) {
 
     }
 
+    @Transactional
     @Override
     public void updateNumberOfDeaths(String districtName, int newNumberOfDeaths) {
 
     }
 
+    @Transactional
     @Override
     public void updateNumberOfInjuries(String districtName, int newNumberOfInjuries) {
 
     }
 
+    @Transactional
     @Override
     public DeathsAndInjured add(DeathsAndInjured deathsAndInjured) {
         return null;

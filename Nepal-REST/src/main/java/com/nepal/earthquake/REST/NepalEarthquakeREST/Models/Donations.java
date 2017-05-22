@@ -17,13 +17,13 @@ public class Donations {
     @Column(unique = true, nullable = false, name = "`ID`")
     private int ID;
 
-    @Column( nullable = false, name = "`Data`")
+    @Column( name = "`Data`")
     private String date;
 
-    @Column(length = 50, nullable = false, name = "`Donation_type`")
+    @Column(length = 100, nullable = false, name = "`Donation_type`")
     private String donationType;
 
-    @Column( length = 50, nullable = false, name = "`Donor`")
+    @Column( length = 50, name = "`Donor`")
     private String donor;
 
     @Column( length = 50, nullable = false, name = "`Net_donation`")
@@ -37,12 +37,12 @@ public class Donations {
         this.ID = ID;
     }
 
-    public String getData() {
+    public String getDate() {
         return date;
     }
 
-    public void setData(String data) {
-        this.date = data;
+    public void setDate(String date) {
+        this.date = date;
     }
 
     public String getDonationType() {

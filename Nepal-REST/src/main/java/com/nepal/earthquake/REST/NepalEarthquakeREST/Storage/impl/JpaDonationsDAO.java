@@ -6,7 +6,9 @@ import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
+import javax.transaction.Transactional;
 import java.util.List;
 
 /**
@@ -18,16 +20,19 @@ public class JpaDonationsDAO implements DonationsDAO {
     @PersistenceContext
     private EntityManager entityManager;
 
+    @Transactional
     @Override
     public Donations addDonations(String fundation, String donor, int sum) {
         return null;
     }
 
+    @Transactional
     @Override
     public void removeDonationsByDonor(String donor) {
 
     }
 
+    @Transactional
     @Override
     public void removeDonationsByFundation(String fundation) {
 
@@ -36,6 +41,12 @@ public class JpaDonationsDAO implements DonationsDAO {
     @Override
     public List<Donations> getAllDonations() {
         TypedQuery<Donations> query = entityManager.createQuery("select d from Donations d", Donations.class);
+        return query.getResultList();
+    }
+
+    @Override
+    public List<Donations> getDonationsSumByFundation() {
+        Query query = entityManager.createQuery("SELECT id, donation_type, sum(net_donation) FROM `donations` group by donation_type", Donations.class);
         return query.getResultList();
     }
 

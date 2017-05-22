@@ -6,6 +6,7 @@ import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.transaction.Transactional;
 import java.util.List;
 
 /**
@@ -27,6 +28,7 @@ public class JpaAftershocksDAO implements AftershocksDAO {
 
     }
 
+    @Transactional
     @Override
     public Aftershocks addNewRecord(Aftershocks newRecord) {
         return null;

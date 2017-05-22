@@ -57,4 +57,9 @@ public class DonationsController {
     public List<Donations> getDonationsByFundation(@PathVariable("fundation") String fundation, @PathVariable("limit") int limit){
         return donationsService.getDonationsByFundation(fundation, limit);
     }
+
+    @RequestMapping(value = "/sumByFundation", method = RequestMethod.GET)
+    public List<Donations> getDonationsSumByFundation(){
+        return donationsDAO.getDonationsSumByFundation();
+    }
 }
