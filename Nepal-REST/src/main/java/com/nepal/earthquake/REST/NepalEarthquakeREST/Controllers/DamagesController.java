@@ -21,26 +21,39 @@ public class DamagesController {
     @Autowired
     private DamagesService damagesService;
 
+    @RequestMapping(value = "/delete/developmentRegion/{developmentRegion}", method = RequestMethod.DELETE)
+    public void removeByDevelopmentRegion(@PathVariable String developmentRegion){
+        damagesService.deleteByDevelopmentRegion(developmentRegion);
+    }
+
+    @RequestMapping(value = "/delete/geographicalRegion/{geographicalRegion}", method = RequestMethod.DELETE)
+    public void removeByGeographicalRegion(@PathVariable String geographicalRegion){
+        damagesService.deleteByGeographicalRegion(geographicalRegion);
+    }
+
+    @RequestMapping(value = "/delete/id/{id}", method = RequestMethod.DELETE)
+    public void removeById(@PathVariable int id){
+        damagesService.deleteById(id);
+    }
+
+    @RequestMapping(value = "/delete/zone/{zone}", method = RequestMethod.DELETE)
+    public void removeByZone(@PathVariable String zone){
+        damagesService.deleteByZone(zone);
+    }
+
+    @RequestMapping(value = "/delete/district/{district}", method = RequestMethod.DELETE)
+    public void removeByDistrict(@PathVariable String district){
+        damagesService.deleteByDistrict(district);
+    }
+
+
 
     @RequestMapping(method = RequestMethod.POST)
     public Damages add(@RequestBody Damages damages){
         return damagesService.add(damages);
     }
 
-    @RequestMapping(value = "/delete/developmentRegion/{developmentRegion}", method = RequestMethod.POST)
-    public void removeByDevelopmentRegion(@PathVariable String developmentRegion){
-        damagesService.deleteByDevelopmentRegion(developmentRegion);
-    }
 
-    @RequestMapping(value = "/delete/geographicalRegion/{geographicalRegion}", method = RequestMethod.POST)
-    public void removeByGeographicalRegion(@PathVariable String geographicalRegion){
-        damagesService.deleteByGeographicalRegion(geographicalRegion);
-    }
-
-    @RequestMapping(value = "/delete/id/{id}", method = RequestMethod.POST)
-    public void removeById(@PathVariable int id){
-        damagesService.deleteById(id);
-    }
 
     @RequestMapping(value = "/developmentRegion/{developmentRegion}", method = RequestMethod.GET)
     public List<Damages> getByDevelopmentRegion(@PathVariable String developmentRegion){
@@ -70,6 +83,16 @@ public class DamagesController {
     @RequestMapping(method = RequestMethod.GET)
     public List<Damages> getAll(){
         return damagesService.getAll();
+    }
+
+    @RequestMapping(value = "/totalHouses/geoReg/{geographicalRegion}", method = RequestMethod.GET)
+    public List<Damages> getTotalHousesByGeographicalRegion(@PathVariable String geographicalRegion){
+        return damagesService.getTotalHousesByGeographicalRegion(geographicalRegion);
+    }
+
+    @RequestMapping(value = "/totalHouses/zone/{zone}", method = RequestMethod.GET)
+    public List<Damages> getTotalHousesByDevelopmentRegion(@PathVariable("zone") String developmentRegion){
+        return damagesService.getTotalHousesByDevelopmentRegion(developmentRegion);
     }
 
     /*@RequestMapping(value = "/population", method = RequestMethod.GET)

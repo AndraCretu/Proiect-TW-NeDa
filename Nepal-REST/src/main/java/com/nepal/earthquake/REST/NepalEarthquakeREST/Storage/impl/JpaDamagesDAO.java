@@ -73,7 +73,7 @@ public class JpaDamagesDAO implements DamagesDAO {
     public Damages getById(int id) {
         TypedQuery<Damages> query = entityManager.createQuery(
                 "select d from Damages d where ID = :id",Damages.class)
-                .setParameter(":id", id);
+                .setParameter("id", id);
 
         return query.getSingleResult();
     }
@@ -86,22 +86,54 @@ public class JpaDamagesDAO implements DamagesDAO {
 
     @Override
     public List<Damages> getTotalHousesAffectedByDevelopmentRegion(String developmentRegion) {
-        return null;
+        TypedQuery<Damages> query = entityManager.createQuery(
+                "select d from Damages d where lower(Causalities) like '%dead male%'" +
+                        " and Development_Region like :developmentRegion", Damages.class)
+                .setParameter("developmentRegion", developmentRegion);
+        return query.getResultList();
     }
 
     @Override
     public List<Damages> getTotalHousesAffectedByGeographicalRegion(String geographicalRegion) {
-        return null;
+        TypedQuery<Damages> query = entityManager.createQuery(
+                "select d from Damages d where lower(Causalities) like '%dead male%'" +
+                        " and Development_Region like :district", Damages.class)
+                .setParameter("district", geographicalRegion);
+        return query.getResultList();
     }
 
     @Override
     public List<Damages> getTotalHousesByDevelopmentRegion(String developmentRegion) {
-        return null;
+        TypedQuery<Damages> query = entityManager.createQuery(
+                "select d from Damages d where lower(Causalities) like 'total no. of houses'" +
+                        " and Development_Region like :developmentRegion", Damages.class)
+                .setParameter("developmentRegion", developmentRegion);
+        return query.getResultList();
     }
 
     @Override
     public List<Damages> getTotalHousesByGeographicalRegion(String geographicalRegion) {
-        return null;
+        TypedQuery<Damages> query = entityManager.createQuery(
+                "select d from Damages d where lower(Causalities) like 'total no. of houses'" +
+                        " and Geographical_Region like :geographicalRegion", Damages.class)
+                .setParameter("geographicalRegion", geographicalRegion);
+        return query.getResultList();
+    }
+
+    @Override
+    public List<Damages> getByDistrict(String district) {
+        TypedQuery<Damages> query = entityManager.createQuery(
+                "select d from Damages d where District like :district", Damages.class)
+                .setParameter("district", district);
+        return query.getResultList();
+    }
+
+    @Override
+    public List<Damages> getByZone(String zone) {
+        TypedQuery<Damages> query = entityManager.createQuery(
+                "select d from Damages d where Zone like :zone", Damages.class)
+                .setParameter("zone", zone);
+        return query.getResultList();
     }
 
     @Override

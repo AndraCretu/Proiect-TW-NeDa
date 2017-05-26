@@ -21,6 +21,8 @@ public class DamagesServiceImpl implements DamagesService{
 
     @Override
     public void deleteById(int id) {
+        Damages result = damagesDAO.getById(id);
+        damagesDAO.remove(result);
 
     }
 
@@ -36,6 +38,25 @@ public class DamagesServiceImpl implements DamagesService{
         List<Damages> result = damagesDAO.getByDevelopmentRegion(developmentRegion);
         for(Damages damages : result)
             damagesDAO.remove(damages);
+    }
+
+    @Override
+    public void deleteByDistrict(String district) {
+        List<Damages> result = damagesDAO.getByDistrict(district);
+
+        for(Damages d : result)
+            damagesDAO.remove(d);
+    }
+
+    @Override
+    public void deleteByZone(String zone) {
+
+        List<Damages> result = damagesDAO.getByZone(zone);
+
+        for(Damages d : result){
+            damagesDAO.remove(d);
+        }
+
     }
 
     @Override
@@ -58,6 +79,7 @@ public class DamagesServiceImpl implements DamagesService{
 
     @Override
     public List<Damages> getTotalHousesAffectedByDevelopmentRegion(String developmentRegion) {
+
         return null;
     }
 
@@ -68,12 +90,13 @@ public class DamagesServiceImpl implements DamagesService{
 
     @Override
     public List<Damages> getTotalHousesByDevelopmentRegion(String developmentRegion) {
-        return null;
+
+        return damagesDAO.getTotalHousesByDevelopmentRegion(developmentRegion);
     }
 
     @Override
     public List<Damages> getTotalHousesByGeographicalRegion(String geographicalRegion) {
-        return null;
+        return damagesDAO.getTotalHousesByGeographicalRegion(geographicalRegion);
     }
 
     @Override
@@ -98,6 +121,16 @@ public class DamagesServiceImpl implements DamagesService{
 
         return totalDeaths;
 
+    }
+
+    @Override
+    public List<Damages> getByZone(String zone) {
+        return null;
+    }
+
+    @Override
+    public List<Damages> getByDistrict(String district) {
+        return null;
     }
 
 }

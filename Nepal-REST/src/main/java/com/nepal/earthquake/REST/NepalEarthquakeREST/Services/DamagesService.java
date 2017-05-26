@@ -9,6 +9,18 @@ import java.util.List;
  */
 public interface DamagesService {
 
+    void deleteById(int id);
+
+    Damages add(Damages damages);
+
+    void deleteByGeographicalRegion(String geographicalRegion);
+
+    void deleteByDevelopmentRegion(String geographicalRegion);
+
+    void deleteByDistrict(String district);
+
+    void deleteByZone(String zone);
+
     List<Damages> getAll();
 
     List<Damages> getTotalHousesAffected();
@@ -29,12 +41,9 @@ public interface DamagesService {
 
     List<Damages> getDeadMaleAndFemaleByRegion(String district);
 
-    void deleteById(int id);
 
-    Damages add(Damages damages);
+    List<Damages> getByZone(String zone);
 
-    void deleteByGeographicalRegion(String geographicalRegion);
-
-    void deleteByDevelopmentRegion(String geographicalRegion);
+    List<Damages> getByDistrict(String district);
 
 }

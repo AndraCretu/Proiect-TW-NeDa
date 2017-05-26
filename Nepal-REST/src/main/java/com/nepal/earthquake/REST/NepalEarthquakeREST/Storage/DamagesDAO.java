@@ -26,6 +26,10 @@ public interface DamagesDAO {
 
     List<Damages> getTotalHousesByGeographicalRegion(String geographicalRegion);
 
+    List<Damages> getByDistrict(String district);
+
+    List<Damages> getByZone(String zone);
+
     List<Damages> getDeadMaleByRegion(String region);
 
     List<Damages> getDeadFemaleByRegion(String region);
