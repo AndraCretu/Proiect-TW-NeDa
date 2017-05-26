@@ -13,8 +13,38 @@ import java.util.List;
  */
 @Service
 public class DamagesServiceImpl implements DamagesService{
+
     @Autowired
     private DamagesDAO damagesDAO;
+
+
+
+    @Override
+    public void deleteById(int id) {
+
+    }
+
+    @Override
+    public Damages add(Damages damages) {
+        damagesDAO.add(damages);
+        return damages;
+    }
+
+
+    @Override
+    public void deleteByDevelopmentRegion(String developmentRegion) {
+        List<Damages> result = damagesDAO.getByDevelopmentRegion(developmentRegion);
+        for(Damages damages : result)
+            damagesDAO.remove(damages);
+    }
+
+    @Override
+    public void deleteByGeographicalRegion(String geographicalRegion) {
+        List<Damages> result = damagesDAO.getByGeographicalRegion(geographicalRegion);
+
+        for(Damages damages : result)
+            damagesDAO.remove(damages);
+    }
 
     @Override
     public List<Damages> getAll() {
@@ -70,18 +100,4 @@ public class DamagesServiceImpl implements DamagesService{
 
     }
 
-    @Override
-    public void deleteById(int id) {
-
-    }
-
-    @Override
-    public void deleteByDevelopmentRegion(String developmentRegion) {
-
-    }
-
-    @Override
-    public void deleteByGeographicalRegion(String geographicalRegion) {
-
-    }
 }

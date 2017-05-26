@@ -31,6 +31,8 @@ public interface DamagesService {
 
     void deleteById(int id);
 
+    Damages add(Damages damages);
+
     void deleteByGeographicalRegion(String geographicalRegion);
 
     void deleteByDevelopmentRegion(String geographicalRegion);

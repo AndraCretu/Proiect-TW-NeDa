@@ -10,11 +10,10 @@ import java.util.List;
 public interface DonationsDAO {
 
 
-    Donations addDonations(String fundation, String donor, int sum);
+    void add(Donations donations);
 
-    void removeDonationsByDonor(String donor);
+    void remove(Donations donation);
 
-    void removeDonationsByFundation(String fundation);
 
     List<Donations> getAllDonations();
 
@@ -25,4 +24,7 @@ public interface DonationsDAO {
     List<Donations> getTopDonations(int top);
 
     List<Donations> getLastDonations(int last);
+
+    List<Donations> getDonationsByDonor(String donor);
+
 }

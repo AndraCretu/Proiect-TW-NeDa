@@ -20,23 +20,18 @@ public class JpaDonationsDAO implements DonationsDAO {
     @PersistenceContext
     private EntityManager entityManager;
 
-    @Transactional
+
     @Override
-    public Donations addDonations(String fundation, String donor, int sum) {
-        return null;
+    public void add(Donations donations) {
+        entityManager.persist(donations);
     }
 
     @Transactional
     @Override
-    public void removeDonationsByDonor(String donor) {
-
+    public void remove(Donations donation) {
+        entityManager.remove(donation);
     }
 
-    @Transactional
-    @Override
-    public void removeDonationsByFundation(String fundation) {
-
-    }
 
     @Override
     public List<Donations> getAllDonations() {
@@ -75,6 +70,15 @@ public class JpaDonationsDAO implements DonationsDAO {
         TypedQuery<Donations> query = entityManager.createQuery(
                 "select d from Donations d order by Net_donations desc", Donations.class);
         query.setMaxResults(last);
+        return query.getResultList();
+    }
+
+    @Override
+    public List<Donations> getDonationsByDonor(String donor) {
+        TypedQuery<Donations> query = entityManager.createQuery(
+                "select d from Donations d where Donor like :donorName",Donations.class)
+                .setParameter("donorName", donor);
+
         return query.getResultList();
     }
 }

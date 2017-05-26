@@ -23,6 +23,11 @@ public class DonationsController {
     @Autowired
     private DonationsDAO donationsDAO;
 
+    @RequestMapping(value = "/{donorName}", method = RequestMethod.POST)
+    public void deleteDonation ( @PathVariable("donorName") String donorName){
+        donationsService.removeDonationsByDonor(donorName);
+    }
+
     @RequestMapping(method = RequestMethod.GET)
     public List<Donations> getAllDonations(){
         return donationsService.getAllDonations();

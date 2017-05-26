@@ -10,6 +10,12 @@ import java.util.List;
 public interface DamagesDAO {
     List<Damages> getAll();
 
+    List<Damages> getByDevelopmentRegion(String developmentRegion);
+
+    List<Damages> getByGeographicalRegion(String geographicalRegion);
+
+    Damages getById( int id);
+
     List<Damages> getTotalHousesAffected();
 
     List<Damages> getTotalHousesAffectedByDevelopmentRegion(String developmentRegion);
@@ -25,10 +31,6 @@ public interface DamagesDAO {
     List<Damages> getDeadFemaleByRegion(String region);
 
     List<Damages> getTotalPopulationByRegion();
-
-    void deleteByDevelopmentRegion(String developmentRegion);
-
-    void deleteByGeographicalRegion(String geographicalRegion);
 
     void add(Damages damage);
 

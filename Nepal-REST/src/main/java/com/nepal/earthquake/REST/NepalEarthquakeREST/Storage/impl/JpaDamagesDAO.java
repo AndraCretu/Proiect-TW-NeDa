@@ -18,6 +18,26 @@ public class JpaDamagesDAO implements DamagesDAO {
     @PersistenceContext
     private EntityManager entityManager;
 
+
+    @Transactional
+    @Override
+    public void add(Damages damage) {
+        entityManager.persist(damage);
+    }
+
+    @Transactional
+    @Override
+    public void remove(Damages damage) {
+        entityManager.remove(damage);
+    }
+
+    @Transactional
+    @Override
+    public void update(Damages damage) {
+        entityManager.merge(damage);
+    }
+
+
     @Override
     public List<Damages> getAll() {
         TypedQuery<Damages> query = entityManager.createQuery(
@@ -25,6 +45,37 @@ public class JpaDamagesDAO implements DamagesDAO {
         );
 
         return query.getResultList();
+    }
+
+
+
+    @Override
+    public List<Damages> getByDevelopmentRegion(String developmentRegion) {
+        TypedQuery<Damages> query = entityManager.createQuery(
+                "select d from Damages d where  Development_Region like :developmentRegion",Damages.class)
+                .setParameter("developmentRegion", developmentRegion);
+
+        return query.getResultList();
+    }
+
+    @Override
+    public List<Damages> getByGeographicalRegion(String geographicalRegion) {
+        TypedQuery<Damages> query = entityManager.createQuery(
+                "select d from Damages d where  Geographical_Region like :geographicalRegion",Damages.class)
+                .setParameter("geographicalRegion", geographicalRegion);
+
+        return query.getResultList();
+    }
+
+
+
+    @Override
+    public Damages getById(int id) {
+        TypedQuery<Damages> query = entityManager.createQuery(
+                "select d from Damages d where ID = :id",Damages.class)
+                .setParameter(":id", id);
+
+        return query.getSingleResult();
     }
 
     @Override
@@ -84,31 +135,6 @@ public class JpaDamagesDAO implements DamagesDAO {
     }
 
 
-    @Override
-    public void deleteByDevelopmentRegion(String developmentRegion) {
 
-    }
 
-    @Override
-    public void deleteByGeographicalRegion(String geographicalRegion) {
-
-    }
-
-    @Transactional
-    @Override
-    public void add(Damages damage) {
-        entityManager.persist(damage);
-    }
-
-    @Transactional
-    @Override
-    public void remove(Damages damage) {
-        entityManager.remove(damage);
-    }
-
-    @Transactional
-    @Override
-    public void update(Damages damage) {
-        entityManager.merge(damage);
-    }
 }

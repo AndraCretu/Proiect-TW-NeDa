@@ -23,6 +23,11 @@ public class DonationServiceImpl implements DonationsService{
 
     @Override
     public void removeDonationsByDonor(String donor) {
+        List<Donations> results = donationsDAO.getDonationsByDonor(donor);
+
+        for(Donations row : results){
+            donationsDAO.remove(row);
+        }
 
     }
 

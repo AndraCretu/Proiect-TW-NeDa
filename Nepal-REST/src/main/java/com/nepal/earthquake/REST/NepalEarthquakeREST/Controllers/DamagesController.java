@@ -4,10 +4,7 @@ import com.nepal.earthquake.REST.NepalEarthquakeREST.Models.Damages;
 import com.nepal.earthquake.REST.NepalEarthquakeREST.Services.DamagesService;
 import com.nepal.earthquake.REST.NepalEarthquakeREST.Storage.DamagesDAO;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -23,6 +20,37 @@ public class DamagesController {
 
     @Autowired
     private DamagesService damagesService;
+
+
+    @RequestMapping(method = RequestMethod.POST)
+    public Damages add(@RequestBody Damages damages){
+        return damagesService.add(damages);
+    }
+
+    @RequestMapping(value = "/delete/developmentRegion/{developmentRegion}", method = RequestMethod.POST)
+    public void removeByDevelopmentRegion(@PathVariable String developmentRegion){
+        damagesService.deleteByDevelopmentRegion(developmentRegion);
+    }
+
+    @RequestMapping(value = "/delete/geographicalRegion/{geographicalRegion}", method = RequestMethod.POST)
+    public void removeByGeographicalRegion(@PathVariable String geographicalRegion){
+        damagesService.deleteByGeographicalRegion(geographicalRegion);
+    }
+
+    @RequestMapping(value = "/delete/id/{id}", method = RequestMethod.POST)
+    public void removeById(@PathVariable int id){
+        damagesService.deleteById(id);
+    }
+
+    @RequestMapping(value = "/developmentRegion/{developmentRegion}", method = RequestMethod.GET)
+    public List<Damages> getByDevelopmentRegion(@PathVariable String developmentRegion){
+        return damagesDAO.getByDevelopmentRegion(developmentRegion);
+    }
+
+    @RequestMapping(value = "/geographicalRegion/{geographicalRegion}", method = RequestMethod.GET)
+    public List<Damages> getByGeographicalRegion(@PathVariable String geographicalRegion){
+        return damagesDAO.getByGeographicalRegion(geographicalRegion);
+    }
 
     @RequestMapping(value = "/deadMale/{region}", method = RequestMethod.GET)
     public List<Damages> getDeadMaleByRegion(@PathVariable String region){
