@@ -18,6 +18,12 @@ public class DamagesServiceImpl implements DamagesService{
     private DamagesDAO damagesDAO;
 
 
+    @Override
+    public void update(String district){
+        List<Damages> result = damagesDAO.getByDistrict(district);
+        for(Damages d : result)
+            damagesDAO.update(d);
+    }
 
     @Override
     public void deleteById(int id) {

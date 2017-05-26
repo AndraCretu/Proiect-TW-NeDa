@@ -8,6 +8,13 @@ import java.util.List;
  * Created by Robert on 5/20/2017.
  */
 public interface DamagesDAO {
+
+    void add(Damages damage);
+
+    void remove(Damages damage);
+
+    void update(Damages damage);
+
     List<Damages> getAll();
 
     List<Damages> getByDevelopmentRegion(String developmentRegion);
@@ -36,9 +43,5 @@ public interface DamagesDAO {
 
     List<Damages> getTotalPopulationByRegion();
 
-    void add(Damages damage);
 
-    void remove(Damages damage);
-
-    void update(Damages damage);
 }

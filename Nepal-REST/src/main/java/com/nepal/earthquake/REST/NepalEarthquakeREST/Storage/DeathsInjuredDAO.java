@@ -8,13 +8,12 @@ import java.util.List;
  * Created by Robert on 5/14/2017.
  */
 public interface DeathsInjuredDAO {
+
+    void remove(DeathsAndInjured deathsAndInjured);
+
+    void update(DeathsAndInjured deathsAndInjured);
+
     List<DeathsAndInjured> getAll();
-
-    void removeById(int id);
-
-    void updateNumberOfDeaths(String districtName, int newNumberOfDeaths);
-
-    void updateNumberOfInjuries(String districtName, int newNumberOfInjuries);
 
     DeathsAndInjured add(DeathsAndInjured deathsAndInjured);
 

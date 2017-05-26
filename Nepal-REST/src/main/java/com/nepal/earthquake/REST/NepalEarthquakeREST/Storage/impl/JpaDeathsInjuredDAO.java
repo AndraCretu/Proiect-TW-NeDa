@@ -18,35 +18,34 @@ public class JpaDeathsInjuredDAO implements DeathsInjuredDAO {
     @PersistenceContext
     private EntityManager entityManager;
 
+    @Transactional
+    @Override
+    public DeathsAndInjured add(DeathsAndInjured deathsAndInjured) {
+
+        entityManager.persist(deathsAndInjured);
+        return deathsAndInjured;
+    }
+
+    @Transactional
+    @Override
+    public void remove(DeathsAndInjured deathsAndInjured) {
+        entityManager.remove(deathsAndInjured);
+    }
+
+    @Transactional
+    @Override
+    public void update(DeathsAndInjured deathsAndInjured) {
+        entityManager.merge(deathsAndInjured);
+    }
+
+
+
     @Override
     public List<DeathsAndInjured> getAll() {
         TypedQuery<DeathsAndInjured> query = entityManager.createQuery("select d from DeathsAndInjured d", DeathsAndInjured.class);
         return query.getResultList();
     }
 
-    @Transactional
-    @Override
-    public void removeById(int id) {
-
-    }
-
-    @Transactional
-    @Override
-    public void updateNumberOfDeaths(String districtName, int newNumberOfDeaths) {
-
-    }
-
-    @Transactional
-    @Override
-    public void updateNumberOfInjuries(String districtName, int newNumberOfInjuries) {
-
-    }
-
-    @Transactional
-    @Override
-    public DeathsAndInjured add(DeathsAndInjured deathsAndInjured) {
-        return null;
-    }
 
     @Override
     public List<DeathsAndInjured> getTop10NumberOfDeaths() {

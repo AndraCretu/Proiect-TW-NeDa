@@ -47,6 +47,10 @@ public class DamagesController {
     }
 
 
+    @RequestMapping(value = "/update/district/{districtName}",method = RequestMethod.PATCH)
+    public void update(@PathVariable String district){
+        damagesService.update(district);
+    }
 
     @RequestMapping(method = RequestMethod.POST)
     public Damages add(@RequestBody Damages damages){

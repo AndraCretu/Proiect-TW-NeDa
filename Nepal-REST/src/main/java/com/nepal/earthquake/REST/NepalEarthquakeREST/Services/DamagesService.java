@@ -13,6 +13,8 @@ public interface DamagesService {
 
     Damages add(Damages damages);
 
+    void update(String district);
+
     void deleteByGeographicalRegion(String geographicalRegion);
 
     void deleteByDevelopmentRegion(String geographicalRegion);
