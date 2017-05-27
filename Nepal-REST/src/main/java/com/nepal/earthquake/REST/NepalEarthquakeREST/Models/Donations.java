@@ -17,6 +17,7 @@ public class Donations {
     @Column(unique = true, nullable = false, name = "`ID`")
     private int ID;
 
+    //TODO transform to date
     @Column( name = "`Date`")
     private String date;
 

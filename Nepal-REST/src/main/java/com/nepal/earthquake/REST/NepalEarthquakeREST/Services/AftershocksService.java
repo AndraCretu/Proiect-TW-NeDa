@@ -11,16 +11,18 @@ import java.util.List;
 
 public interface AftershocksService {
 
+    void updateDistrictMagnitude(String districtName, int newMagnitude);
+
+    void deleteDistrictRecord(String districtName);
+
+    Aftershocks addNewRecord(Aftershocks newRecord);
+
     List<Aftershocks> getAll();
 
     List<Aftershocks> getTop3ByMagnitude();
 
     List<Aftershocks> getLast3ByMagnitude();
 
-    void updateDistrictMagnitude(String districtName, int newMagnitude);
 
-    void deleteDistrictRecord(String districtName);
-
-    Aftershocks addNewRecord(Aftershocks newRecord);
 
 }

@@ -1,6 +1,7 @@
 package com.nepal.earthquake.REST.NepalEarthquakeREST.Storage;
 
 import com.nepal.earthquake.REST.NepalEarthquakeREST.Models.Aftershocks;
+import org.aspectj.lang.annotation.After;
 
 import java.util.List;
 
@@ -8,9 +9,9 @@ import java.util.List;
  * Created by Robert on 5/20/2017.
  */
 public interface AftershocksDAO {
-    void updateDistrictMagnitude(String districtName, int newMagnitude);
+    void update(Aftershocks aftershocks);
 
-    void deleteDistrictRecord(String districtName);
+    void deleteDistrictRecord(Aftershocks aftershocks);
 
     Aftershocks addNewRecord(Aftershocks newRecord);
 
@@ -19,5 +20,9 @@ public interface AftershocksDAO {
     List<Aftershocks> getTop3ByMagnitude();
 
     List<Aftershocks> getLast3ByMagnitude();
+
+    Aftershocks getById(int id);
+
+    List<Aftershocks> getByDistrict(String district);
 
 }

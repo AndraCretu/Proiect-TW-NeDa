@@ -6,6 +6,7 @@ import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 import javax.transaction.Transactional;
 import java.util.List;
 
@@ -18,34 +19,62 @@ public class JpaAftershocksDAO implements AftershocksDAO {
     @PersistenceContext
     private EntityManager entityManager;
 
+    @Transactional
     @Override
-    public void updateDistrictMagnitude(String districtName, int newMagnitude) {
-
-    }
-
-    @Override
-    public void deleteDistrictRecord(String districtName) {
+    public void update(Aftershocks aftershocks) {
+        entityManager.merge(aftershocks);
 
     }
 
     @Transactional
     @Override
+    public void deleteDistrictRecord(Aftershocks aftershocks) {
+        entityManager.remove(aftershocks);
+    }
+
+    @Transactional
+    @Override
     public Aftershocks addNewRecord(Aftershocks newRecord) {
-        return null;
+        entityManager.persist(newRecord);
+        return newRecord;
     }
 
     @Override
     public List<Aftershocks> getAll() {
-        return null;
+        TypedQuery<Aftershocks> query = entityManager.createQuery(
+                "select a from Aftershocks a", Aftershocks.class);
+        return query.getResultList();
     }
 
     @Override
     public List<Aftershocks> getTop3ByMagnitude() {
-        return null;
+        TypedQuery<Aftershocks> query = entityManager.createQuery(
+                "select a from Aftershocks a order by Severity desc", Aftershocks.class);
+        query.setMaxResults(3);
+        return query.getResultList();
     }
 
     @Override
     public List<Aftershocks> getLast3ByMagnitude() {
-        return null;
+        TypedQuery<Aftershocks> query = entityManager.createQuery(
+                "select a from Aftershocks a order by Severity asc", Aftershocks.class);
+        query.setMaxResults(3);
+        return query.getResultList();
+    }
+
+    @Override
+    public Aftershocks getById(int id) {
+        TypedQuery<Aftershocks> query = entityManager.createQuery(
+                "select a from Aftershocks a where ID = :id",Aftershocks.class)
+                .setParameter("id", id);
+        return query.getSingleResult();
+    }
+
+    @Override
+    public List<Aftershocks> getByDistrict(String district) {
+        TypedQuery<Aftershocks> query = entityManager.createQuery(
+                "select a from Aftershocks a where District like :district", Aftershocks.class)
+                .setParameter("district", district);
+        return query.getResultList();
     }
 }
