@@ -14,19 +14,19 @@ public class Damages {
     @Column(nullable = false, name= "`ID`")
     private int id;
 
-    @Column( name = "`District`")
+    @Column( length = 50, name = "`District`")
     private String district;
 
-    @Column( name = "`Zone`")
+    @Column( length = 50, name = "`Zone`")
     private String zone;
 
-    @Column( name = "`Geographical_Region`")
+    @Column( length = 50, name = "`Geographical_Region`")
     private String geographicalRegion;
 
-    @Column( name = "`Development_Region`")
+    @Column( length = 50, name = "`Development_Region`")
     private String developmentRegion;
 
-    @Column( name = "`Causalities`")
+    @Column( length = 50, name = "`Causalities`")
     private String causalities;
 
     @Column( name = "`Number`")

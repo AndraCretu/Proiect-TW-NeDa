@@ -17,7 +17,7 @@ public class Donations {
     @Column(unique = true, nullable = false, name = "`ID`")
     private int ID;
 
-    @Column( name = "`Data`")
+    @Column( name = "`Date`")
     private String date;
 
     @Column(length = 100, nullable = false, name = "`Donation_type`")
