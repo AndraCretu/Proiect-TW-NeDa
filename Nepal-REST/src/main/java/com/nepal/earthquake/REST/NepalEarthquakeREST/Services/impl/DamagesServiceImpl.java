@@ -80,18 +80,20 @@ public class DamagesServiceImpl implements DamagesService{
 
     @Override
     public List<Damages> getTotalHousesAffected() {
-        return null;
+
+        return damagesDAO.getTotalHousesAffected();
     }
 
     @Override
     public List<Damages> getTotalHousesAffectedByDevelopmentRegion(String developmentRegion) {
 
-        return null;
+        return damagesDAO.getTotalHousesAffectedByDevelopmentRegion(developmentRegion);
     }
 
     @Override
     public List<Damages> getTotalHousesAffectedByGeographicalRegion(String geographicalRegion) {
-        return null;
+
+        return damagesDAO.getTotalHousesAffectedByGeographicalRegion(geographicalRegion);
     }
 
     @Override
@@ -117,7 +119,7 @@ public class DamagesServiceImpl implements DamagesService{
 
     @Override
     public List<Damages> getTotalPopulationByDistrict(String district) {
-        return damagesDAO.getTotalPopulationByRegion();
+        return damagesDAO.getTotalPopulationByRegion(district);
     }
 
     @Override
@@ -131,12 +133,14 @@ public class DamagesServiceImpl implements DamagesService{
 
     @Override
     public List<Damages> getByZone(String zone) {
-        return null;
+
+        return damagesDAO.getByZone(zone);
     }
 
     @Override
     public List<Damages> getByDistrict(String district) {
-        return null;
+
+        return damagesDAO.getByDistrict(district);
     }
 
 }

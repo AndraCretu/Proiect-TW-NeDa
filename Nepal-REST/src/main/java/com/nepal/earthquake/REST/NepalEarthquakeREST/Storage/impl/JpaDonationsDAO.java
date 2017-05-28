@@ -21,6 +21,7 @@ public class JpaDonationsDAO implements DonationsDAO {
     private EntityManager entityManager;
 
 
+    @Transactional
     @Override
     public void add(Donations donations) {
         entityManager.persist(donations);

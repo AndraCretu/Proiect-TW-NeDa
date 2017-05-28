@@ -80,7 +80,10 @@ public class JpaDamagesDAO implements DamagesDAO {
 
     @Override
     public List<Damages> getTotalHousesAffected() {
-        return null;
+        TypedQuery<Damages> query = entityManager.createQuery(
+                "select d from Damages d where " +
+                        "lower(Causalities) like '%house fully destroyed%'", Damages.class);
+        return query.getResultList();
 
     }
 
@@ -96,9 +99,9 @@ public class JpaDamagesDAO implements DamagesDAO {
     @Override
     public List<Damages> getTotalHousesAffectedByGeographicalRegion(String geographicalRegion) {
         TypedQuery<Damages> query = entityManager.createQuery(
-                "select d from Damages d where lower(Causalities) like '%dead male%'" +
-                        " and Development_Region like :district", Damages.class)
-                .setParameter("district", geographicalRegion);
+                "select d from Damages d where lower(Causalities) like '%house fully destroyed%'" +
+                        " and Geographical_region like :geographicalRegion", Damages.class)
+                .setParameter("geographicalRegion", geographicalRegion);
         return query.getResultList();
     }
 
@@ -158,10 +161,11 @@ public class JpaDamagesDAO implements DamagesDAO {
     }
 
     @Override
-    public List<Damages> getTotalPopulationByRegion() {
+    public List<Damages> getTotalPopulationByRegion(String developmentRegion) {
         TypedQuery<Damages> query = entityManager.createQuery(
-                "select d from Damages d where Causalities like 'Total Population'", Damages.class
-        );
+                "select d from Damages d where Causalities like 'Total Population'" +
+                        "and Zone like :region", Damages.class)
+                .setParameter("region", developmentRegion);
 
         return query.getResultList();
     }

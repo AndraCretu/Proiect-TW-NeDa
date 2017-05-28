@@ -27,6 +27,8 @@ public class DeathsInjuredController {
     @Autowired
     private DeathsInjuredDAO casualtyCount;
 
+    //TODO response body for delete/update
+
     @RequestMapping(method = RequestMethod.GET)
     public List<DeathsAndInjured> getCasualty(@RequestParam(required = false) Map<String, String> q){
         return casualtyService.getAll();

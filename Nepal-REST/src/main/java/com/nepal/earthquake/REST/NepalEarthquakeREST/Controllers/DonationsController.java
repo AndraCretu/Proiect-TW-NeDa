@@ -4,10 +4,7 @@ import com.nepal.earthquake.REST.NepalEarthquakeREST.Models.Donations;
 import com.nepal.earthquake.REST.NepalEarthquakeREST.Services.DonationsService;
 import com.nepal.earthquake.REST.NepalEarthquakeREST.Storage.DonationsDAO;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -23,9 +20,23 @@ public class DonationsController {
     @Autowired
     private DonationsDAO donationsDAO;
 
-    @RequestMapping(value = "/{donorName}", method = RequestMethod.POST)
+    //TODO response body for delete/update
+
+
+    @RequestMapping(value = "/remove/donor/{donorName}", method = RequestMethod.POST)
     public void deleteDonation ( @PathVariable("donorName") String donorName){
         donationsService.removeDonationsByDonor(donorName);
+    }
+
+    @RequestMapping(value = "/remove/fundation/{fundationName}", method = RequestMethod.DELETE)
+    public void deleteDonationsByFundation(@PathVariable("fundationName") String fundationName){
+        donationsService.removeDonationsByFundation(fundationName);
+
+    }
+
+    @RequestMapping(value = "", method = RequestMethod.POST)
+    public void addDonation(@RequestBody Donations donation){
+        donationsService.addDonations(donation);
     }
 
     @RequestMapping(method = RequestMethod.GET)
@@ -66,5 +77,10 @@ public class DonationsController {
     @RequestMapping(value = "/sumByFundation", method = RequestMethod.GET)
     public List<Donations> getDonationsSumByFundation(){
         return donationsDAO.getDonationsSumByFundation();
+    }
+
+    @RequestMapping(value = "/donor/{donorName}", method = RequestMethod.GET)
+    public List<Donations> getDonationByDonor(@PathVariable String donorName){
+        return donationsService.getDonationsByDonor(donorName);
     }
 }

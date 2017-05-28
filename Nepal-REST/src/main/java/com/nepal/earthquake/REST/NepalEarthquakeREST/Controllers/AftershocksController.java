@@ -24,6 +24,8 @@ public class AftershocksController {
     private AftershocksService aftershocksService;
 
 
+    //TODO response body for delete/update
+
     @RequestMapping(value = "/delete/{districtName}", method = RequestMethod.DELETE)
     public void deleteByDistrictName(@PathVariable String districtName){
         aftershocksService.deleteDistrictRecord(districtName);

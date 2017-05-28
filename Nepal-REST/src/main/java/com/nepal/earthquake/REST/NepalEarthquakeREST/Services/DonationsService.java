@@ -9,7 +9,7 @@ import java.util.List;
  */
 public interface DonationsService {
 
-    Donations addDonations(String fundation, String donor, int sum);
+    void addDonations(Donations donations);
 
     void removeDonationsByDonor(String donor);
 
@@ -22,4 +22,6 @@ public interface DonationsService {
     List<Donations> getTopDonations(int top);
 
     List<Donations> getLastDonations(int last);
+
+    List<Donations> getDonationsByDonor(String donorName);
 }

@@ -21,6 +21,8 @@ public class DamagesController {
     @Autowired
     private DamagesService damagesService;
 
+    //TODO response body for delete/add
+
     @RequestMapping(value = "/delete/developmentRegion/{developmentRegion}", method = RequestMethod.DELETE)
     public void removeByDevelopmentRegion(@PathVariable String developmentRegion){
         damagesService.deleteByDevelopmentRegion(developmentRegion);
@@ -99,9 +101,30 @@ public class DamagesController {
         return damagesService.getTotalHousesByDevelopmentRegion(developmentRegion);
     }
 
-    /*@RequestMapping(value = "/population", method = RequestMethod.GET)
-    public List<Damages> getTotalPopulation(){
-        return damagesService.getTotalPopulationByDistrict();
-    }*/
+
+    @RequestMapping(value = "/destroyedHouses/geographical/{geographicalRegion}", method = RequestMethod.GET)
+    public List<Damages> getTotalHouseAffectedByGeoRegion(@PathVariable String geographicalRegion){
+        return damagesService.getTotalHousesAffectedByGeographicalRegion(geographicalRegion);
+    }
+
+    @RequestMapping(value = "/destroyedHouses/region/{developmentRegion}", method = RequestMethod.GET)
+    public List<Damages> getTotalHousesAffectByDevRegn(@PathVariable String developmentRegion) {
+        return damagesService.getTotalHousesAffectedByDevelopmentRegion(developmentRegion);
+    }
+
+    @RequestMapping(value = "/destroyedHouses", method = RequestMethod.GET)
+    public List<Damages> getTotalHousesAffected(){
+        return damagesService.getTotalHousesAffected();
+    }
+
+    @RequestMapping(value = "/zone/{zone}", method = RequestMethod.GET)
+    public List<Damages> getByZone(@PathVariable String zone){
+        return damagesService.getByZone(zone);
+    }
+
+    @RequestMapping(value = "/district/{district}", method = RequestMethod.GET)
+    public List<Damages> getByDistrict(@PathVariable String district){
+        return damagesService.getByDistrict(district);
+    }
 
 }
