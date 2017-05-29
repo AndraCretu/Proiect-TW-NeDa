@@ -33,7 +33,7 @@ public class DonationServiceImpl implements DonationsService{
 
     @Override
     public void removeDonationsByFundation(String fundation) {
-            List<Donations> donations = donationsDAO.getDonationsByFundation(fundation, 0);
+            List<Donations> donations = donationsDAO.getDetailedDonationsByFundation(fundation, 0);
 
             for(Donations d : donations)
                 donationsDAO.remove(d);
@@ -45,10 +45,15 @@ public class DonationServiceImpl implements DonationsService{
     }
 
     @Override
-    public List<Donations> getDonationsByFundation(String fundation, int limit) {
+    public List<Object[]> getDonationsByFundation(String fundation, int limit) {
 
         fundation = "%" + fundation + "%";
         return donationsDAO.getDonationsByFundation(fundation, limit);
+    }
+
+    @Override
+    public List<Donations> getDetailedDonationsByFundation(String fundation, int limit) {
+        return donationsDAO.getDetailedDonationsByFundation(fundation,limit);
     }
 
     @Override

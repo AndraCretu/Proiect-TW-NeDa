@@ -65,13 +65,13 @@ public class DonationsController {
     }
 
     @RequestMapping(value = "/{fundation}", method = RequestMethod.GET)
-    public List<Donations> getDonationsByFundation(@PathVariable("fundation") String fundation){
+    public List<Object[]> getDonationsByFundation(@PathVariable("fundation") String fundation){
         return donationsService.getDonationsByFundation(fundation, 0);
     }
 
     @RequestMapping(value = "/{fundation}/{limit}", method = RequestMethod.GET)
     public List<Donations> getDonationsByFundation(@PathVariable("fundation") String fundation, @PathVariable("limit") int limit){
-        return donationsService.getDonationsByFundation(fundation, limit);
+        return donationsService.getDetailedDonationsByFundation(fundation, limit);
     }
 
     @RequestMapping(value = "/sumByFundation", method = RequestMethod.GET)
