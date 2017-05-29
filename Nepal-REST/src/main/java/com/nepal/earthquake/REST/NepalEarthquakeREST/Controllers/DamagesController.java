@@ -76,9 +76,24 @@ public class DamagesController {
         return damagesService.getDeadMaleByRegion(region);
     }
 
+    @RequestMapping(value = "/deadMale/only/{region}", method = RequestMethod.GET)
+    public List<Object[]> getDeadMaleByRegionOnly(@PathVariable String region){
+        return damagesService.getDeadMaleByRegionOnly(region);
+    }
+
+    @RequestMapping(value = "/deadFemale/only/{region}", method = RequestMethod.GET)
+    public List<Object[]> getDeadFemaleByRegionOnly(@PathVariable String region){
+        return damagesService.getDeadFemaleByRegionOnly(region);
+    }
+
     @RequestMapping(value = "/deadFemale/{region}", method = RequestMethod.GET)
     public List<Damages> getDeadFemaleByRegion(@PathVariable String region){
         return damagesService.getDeadFemaleByRegion(region);
+    }
+
+    @RequestMapping(value = "/deadMaleFemale/{region}", method = RequestMethod.GET)
+    public List<Object[]> getDeadMaleAndFemaleByRegionOnly(@PathVariable String region){
+        return damagesService.getDeadMaleAndFemaleByRegionOnly(region);
     }
 
     @RequestMapping(value = "/totalDeaths/{region}", method = RequestMethod.GET)

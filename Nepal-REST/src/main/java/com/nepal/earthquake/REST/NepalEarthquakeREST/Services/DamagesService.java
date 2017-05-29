@@ -37,6 +37,12 @@ public interface DamagesService {
 
     List<Damages> getDeadMaleByRegion(String region);
 
+    List<Object[]> getDeadMaleByRegionOnly(String region);
+
+    List<Object[]> getDeadFemaleByRegionOnly(String region);
+
+    List<Object[]> getDeadMaleAndFemaleByRegionOnly(String region);
+
     List<Damages> getDeadFemaleByRegion(String region);
 
     List<Damages> getTotalPopulationByDistrict(String district);

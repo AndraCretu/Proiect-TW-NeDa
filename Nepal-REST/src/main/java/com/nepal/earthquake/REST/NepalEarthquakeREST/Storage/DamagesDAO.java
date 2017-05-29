@@ -39,6 +39,12 @@ public interface DamagesDAO {
 
     List<Damages> getDeadMaleByRegion(String region);
 
+    List<Object[]> getDeadMaleByRegionOnly(String region);
+
+    List<Object[]> getDeadFemaleByRegionOnly(String region);
+
+    List<Object[]> getDeadMaleAndFemaleByRegion(String region);
+
     List<Damages> getDeadFemaleByRegion(String region);
 
     List<Damages> getTotalPopulationByRegion(String region);

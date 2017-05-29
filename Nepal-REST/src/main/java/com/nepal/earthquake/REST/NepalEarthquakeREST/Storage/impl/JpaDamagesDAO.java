@@ -6,6 +6,7 @@ import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import javax.transaction.Transactional;
 import java.util.List;
@@ -147,6 +148,40 @@ public class JpaDamagesDAO implements DamagesDAO {
                 .setParameter("district", region);
         return query.getResultList();
 
+    }
+
+    @Override
+    public List<Object[]> getDeadMaleByRegionOnly(String region) {
+        TypedQuery<Object[]> query = entityManager.createQuery("SELECT d.district,(0 - d.number ) " +
+                "from Damages d where d.developmentRegion like :region " +
+                " and lower(d.causalities) like 'dead male'", Object[].class)
+                .setParameter("region", region);
+        return query.getResultList();
+    }
+
+    @Override
+    public List<Object[]> getDeadFemaleByRegionOnly(String region) {
+        TypedQuery<Object[]> query = entityManager.createQuery("SELECT d.district, d.number " +
+                "from Damages d where d.developmentRegion like :region " +
+                " and lower(d.causalities) like 'dead female'", Object[].class)
+                .setParameter("region", region);
+        return query.getResultList();
+    }
+
+    @Override
+    public List<Object[]> getDeadMaleAndFemaleByRegion(String region) {
+        /*TypedQuery<Object[]> query = entityManager.createQuery("SELECT d1.district, d1.number, (0 - d2.number)" +
+                " from Damages as d1 left join Damages as d2 on d1.district = d2.district where " +
+                "d1.developmentRegion like :region and lower(d1.causalities) like 'dead female'" +
+                " and lower(d2.causalities) like 'dead male'", Object[].class);*/
+        TypedQuery<Object[]> query = entityManager.createQuery("SELECT distinct d1.district, d1.number, (0 - d2.number) " +
+                "from Damages d1, Damages d2 where d1.district = d2.district " +
+                "and lower(d1.causalities) like 'dead female' and" +
+                " lower(d2.causalities) like 'dead male' and " +
+                "d1.developmentRegion = :region and d2.developmentRegion = :region", Object[].class)
+                .setParameter("region", region);
+
+        return query.getResultList();
     }
 
     @Override

@@ -113,6 +113,21 @@ public class DamagesServiceImpl implements DamagesService{
     }
 
     @Override
+    public List<Object[]> getDeadMaleByRegionOnly(String region) {
+        return damagesDAO.getDeadMaleByRegionOnly(region);
+    }
+
+    @Override
+    public List<Object[]> getDeadFemaleByRegionOnly(String region) {
+        return damagesDAO.getDeadFemaleByRegionOnly(region);
+    }
+
+    @Override
+    public List<Object[]> getDeadMaleAndFemaleByRegionOnly(String region) {
+        return damagesDAO.getDeadMaleAndFemaleByRegion(region);
+    }
+
+    @Override
     public List<Damages> getDeadFemaleByRegion(String region) {
         return damagesDAO.getDeadFemaleByRegion(region);
     }
@@ -128,7 +143,6 @@ public class DamagesServiceImpl implements DamagesService{
         totalDeaths.addAll(damagesDAO.getDeadMaleByRegion(district));
 
         return totalDeaths;
-
     }
 
     @Override
