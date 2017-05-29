@@ -80,10 +80,10 @@ public class JpaDamagesDAO implements DamagesDAO {
     }
 
     @Override
-    public List<Damages> getTotalHousesAffected() {
-        TypedQuery<Damages> query = entityManager.createQuery(
-                "select d from Damages d where " +
-                        "lower(Causalities) like '%house fully destroyed%'", Damages.class);
+    public List<Object[]> getTotalHousesAffected() {
+        TypedQuery<Object[]> query = entityManager.createQuery(
+                "select d.district, d.number from Damages d where " +
+                        "lower(Causalities) like '%house fully destroyed%'", Object[].class);
         return query.getResultList();
 
     }

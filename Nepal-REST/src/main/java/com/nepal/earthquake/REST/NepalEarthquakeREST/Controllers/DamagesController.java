@@ -128,7 +128,7 @@ public class DamagesController {
     }
 
     @RequestMapping(value = "/destroyedHouses", method = RequestMethod.GET)
-    public List<Damages> getTotalHousesAffected(){
+    public List<Object[]> getTotalHousesAffected(){
         return damagesService.getTotalHousesAffected();
     }
 

@@ -79,7 +79,7 @@ public class DamagesServiceImpl implements DamagesService{
     }
 
     @Override
-    public List<Damages> getTotalHousesAffected() {
+    public List<Object[]> getTotalHousesAffected() {
 
         return damagesDAO.getTotalHousesAffected();
     }

@@ -23,7 +23,7 @@ public interface DamagesDAO {
 
     Damages getById( int id);
 
-    List<Damages> getTotalHousesAffected();
+    List<Object[]> getTotalHousesAffected();
 
     List<Damages> getTotalHousesAffectedByDevelopmentRegion(String developmentRegion);
 

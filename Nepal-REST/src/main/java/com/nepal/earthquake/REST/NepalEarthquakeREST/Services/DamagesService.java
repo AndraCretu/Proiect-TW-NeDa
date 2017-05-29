@@ -25,7 +25,7 @@ public interface DamagesService {
 
     List<Damages> getAll();
 
-    List<Damages> getTotalHousesAffected();
+    List<Object[]> getTotalHousesAffected();
 
     List<Damages> getTotalHousesAffectedByDevelopmentRegion(String developmentRegion);
 
