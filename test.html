@@ -1,0 +1,268 @@
+<!doctype html>
+<html>
+  <head>
+    <script src="https://cdn.anychart.com/js/7.14.0/anychart-bundle.min.js"></script>
+    <script src="https://cdn.anychart.com/geodata/1.2.0/countries/nepal/nepal.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/proj4js/2.3.15/proj4.js"></script>
+	    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+			<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+    <link rel="stylesheet" href="https://cdn.anychart.com/css/7.14.0/anychart-ui.min.css" />
+    <style>
+      html, body{
+        width: 100%;
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+	  #graphic,#container {
+    width: 100%;
+    height: 400px;
+    margin: 0 auto;
+    padding: 0;
+}
+#row1{
+    margin : 0 auto;
+}
+    </style>
+  </head>
+  <body>
+   <div class="row" id="row1">
+          <div class="col-md-6" id="col1" style="margin :0 auto; pading:10px;">
+			 <div id="container"></div>
+          </div>
+		  <div class="col-md-6" id="col2" style="margin :0 auto; pading:10px;">
+              <div id="graphic"></div>
+	        </div>
+	 </div>	
+
+    <script>
+
+anychart.onDocumentReady(function () {
+    // create data set
+    var dataSet = anychart.data.set(getData());
+
+    // create map chart
+    map = anychart.map();
+    // set geodata using https://cdn.anychart.com/geodata/1.2.0/countries/france/france.js
+    map.geoData(anychart.maps.nepal);
+    map.padding(0);
+
+    var lat_data, long_data, region_data;
+    // create map title
+    map.title().enabled(true).padding([20, 0, 20, 0]).text("Coordinates and the region name\nby moving the cursor over the map of France");
+
+    var label = map.label();
+    var labelFormat = "<span style='color: #545f69; font-size: 14px'><b>lat</b>: %s;<br/><b>long</b>: %s;<br/><b>region</b>: %s</span>";
+    label.enabled(true)
+            .useHtml(true)
+            .padding(10)
+            .hAlign("left").position("topright")
+            .anchor("topright")
+            .offsetY(80)
+            .offsetX(20)
+            .width(280)
+            .text(anychart.format.subs(labelFormat, '', '', ''));
+    label.background()
+            .fill('#FCFCFC')
+            .stroke('#E1E1E1')
+            .corners(3)
+            .cornerType('ROUND');
+
+    //create choropleth series
+    var series = map.choropleth(dataSet);
+    series.tooltip()
+            .title(false)
+            .separator(false)
+            .format(function () {
+                return '<span>' + this.name + '</span><br/>' +
+                        '<span style="font-size: 14px; color: #E1E1E1">id: ' + this.id + '</span>';
+            });
+    series.selectionMode("none")
+            .labels(false)
+            .fill('#F7F7F7')
+            .hoverFill('#64b5f6')
+            .stroke('#B9B9B9')
+            .tooltip()
+            .useHtml(true)
+            .padding([8, 13, 10, 13])
+            .fontSize(16);
+
+    //set series geo id field settings
+    series.geoIdField("id");
+
+    // add pointsHover listener to get hovered region
+    map.listen('pointsHover', function (evt) {
+        if (evt.seriesStatus[0].points[0]) {
+            region_data = evt.seriesStatus[0].points[0].properties.name;
+        }
+        else region_data = undefined;
+    });
+
+    // add mouseMove listener to calc lat/long
+    map.listen('mouseMove', function (evt) {
+        var localCord = map.globalToLocal(evt.clientX, evt.clientY);
+        var latLong = map.inverseTransform(localCord.x, localCord.y);
+        if (region_data) {
+            label.text(anychart.format.subs(labelFormat, latLong.lat, latLong.long, region_data));
+        }
+        else {
+            label.text(anychart.format.subs(labelFormat, latLong.lat, latLong.long, ''));
+        }
+    });
+     
+	 map.listen('click', function (evt) {
+       drawGraph();
+    });
+    // set container id for the chart
+    map.container('container');
+
+    // initiate chart drawing
+    map.draw();
+});
+
+function getData() {
+    return [
+        {'id': 'NP.PM'},
+        { "id": "NP.MP"},
+        {"id": "NP.747"},
+        {"id": "NP.748"},
+        {"id": "NP.749"},
+        {"id": "NP.SP"},
+        {"id": "NP.751"},
+        {"id": "NP.MM"},
+        {"id": "NP.753"},
+        {"id": "NP.754"},
+        {"id": "NP.PW"},
+        {"id": "NP.756"},
+        { "id": "NP.757"},
+        { "id": "NP.354"},
+    ]
+}
+   function  drawGraph() {
+    // create data set
+    var dataSet = anychart.data.set(getData1());
+
+    // map data for the first series, take x from the zero column and value from the first column of data set
+    var seriesData_1 = dataSet.mapAs({x: [0], value: [1]});
+
+    // map data for the second series, take x from the zero column and value from the second column of data set
+    var seriesData_2 = dataSet.mapAs({x: [0], value: [2]});
+
+    // create bar chart
+    chart = anychart.bar();
+
+    // turn on chart animation
+    chart.animation(true);
+
+    // set padding
+    chart.padding([10, 20, 5, 20]);
+
+    // force chart to stack values by Y scale.
+    chart.yScale().stackMode('value');
+
+    // format y axis labels so they are always positive
+    chart.yAxis().labels().format(function () {
+        return Math.abs(this.value).toLocaleString();
+    });
+
+    // set title for Y-axis
+    chart.yAxis(0).title('No of deahts and injured');
+
+    // allow labels to overlap
+    chart.xAxis(0).overlapMode("allowOverlap");
+
+    // turn on extra axis for the symmetry
+    chart.xAxis(1)
+        .enabled(true)
+        .orientation('right')
+        .overlapMode("allowOverlap");
+
+    // set chart title text
+    chart.title('Deaths and injured');
+
+    chart.interactivity().hoverMode('byY');
+
+    chart.tooltip()
+        .title(false)
+        .separator(false)
+        .displayMode('separated')
+        .positionMode('point')
+        .useHtml(true)
+        .fontSize(20)
+        .offsetX(5)
+        .offsetY(0)
+        .format(function () {
+            return '<span style="color: #D9D9D9"></span>' + Math.abs(this.value).toLocaleString();
+        });
+
+    // temp variable to store series instance
+    var series;
+
+    // create first series with mapped data
+    series = chart.bar(seriesData_1);
+    series.tooltip()
+        .position('right')
+        .anchor('left');
+    series.color("black");
+    series.name('Deaths');
+
+    // create second series with mapped data
+    series = chart.bar(seriesData_2);
+    series.tooltip()
+        .position('left')
+        .anchor('right');
+    series.color("red");
+    series.name('Injured');
+
+    // turn on legend
+    chart.legend()
+        .enabled(true)
+        .inverted(true)
+        .fontSize(15)
+        .padding([0, 0, 20, 0]);
+
+    // set container id for the chart
+    document.getElementById('graphic').innerHTML = "";
+    chart.container('graphic');
+
+    // initiate chart drawing
+    chart.draw();
+
+    var buttonJPG = document.getElementById("btnJPG");
+    var buttonSVG = document.getElementById("btnSVG");
+    var buttonPNG = document.getElementById("btnPNG");
+// 3. Add event handler
+    buttonJPG.addEventListener ("click", function (){chart.saveAsJpg({width: 360, height: 500, quality: 0.3, forceTransparentWhite: "false", filename: "Deaths_injured"})});
+   buttonSVG.addEventListener ("click", function (){chart.saveAsSvg({width: 360, height: 500, filename: 'custom_name'})});
+    buttonPNG.addEventListener ("click", function (){chart.saveAsSvg({width: 360, height: 500, quality: 0.3, filename: "custom_name"})});
+}
+
+function getData1() {
+    return [
+        ['Nail polish', 5376, -229],
+        ['Eyebrow pencil', 10987, -932],
+        ['Rouge', 7624, -5221],
+        ['Pomade', 8814, -256],
+        ['Eyeshadows', 8998, -308],
+        ['Eyeliner', 9321, -432],
+        ['Foundation', 8342, -701],
+        ['Lip gloss', 6998, -908],
+        ['Mascara', 9261, -712],
+        ['Shampoo', 5376, -9229],
+        ['Hair conditioner', 10987, -13932],
+        ['Body lotion', 7624, -10221],
+        ['Shower gel', 8814, -12256],
+        ['Soap', 8998, -5308],
+        ['Eye fresher', 9321, -432],
+        ['Deodorant', 8342, -11701],
+        ['Hand cream', 7598, -5808],
+        ['Foot cream', 6098, -3987],
+        ['Night cream', 6998, -847],
+        ['Day cream', 5304, -4008],
+        ['Vanila cream', 9261, -712]
+    ]
+} 
+    </script>
+  </body>
+</html>
